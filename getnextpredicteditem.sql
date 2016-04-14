@@ -1,10 +1,12 @@
-SELECT id2reckey(item_record_id),
-id2reckey(order_record_metadata_id),
-id2reckey(bib_record_holding_record_link.bib_record_id),
-id2reckey(bib_record_holding_record_link.holding_record_id),
+SELECT id2reckey(item_record_id) as "RECORD #(ITEM)",
+id2reckey(order_record_metadata_id) as "RECORD #(ORDER)",
+id2reckey(bib_record_holding_record_link.bib_record_id) as "RECORD #(BIBLIO)",
+id2reckey(bib_record_holding_record_link.holding_record_id) as "RECORD #(HOLDING)",
 claimon_date_gmt - INTERVAL '1 day' * claim_days AS "Expected Date",
 '0000-00-00' as "Received Date",
-marc_tag, tag, field_content
+marc_tag as "MARC LINK",
+tag as "SUBFIELD",
+field_content as "PATTERN"
 FROM sierra_view.bib_record_item_record_link 
 LEFT JOIN sierra_view.bib_record_holding_record_link ON bib_record_holding_record_link.bib_record_id=bib_record_item_record_link.bib_record_id
 LEFT JOIN sierra_view.holding_record ON bib_record_holding_record_link.holding_record_id = 
