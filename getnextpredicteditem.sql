@@ -25,4 +25,5 @@ INNER JOIN
     marc_tag = '853' AND tag = '8' AND marc_ind1 = '' GROUP BY record_id,marc_tag,tag) AS subfields
 ON holding_record.id=subfields.record_id
 WHERE  order_record_metadata_id IS NOT NULL AND
- item_record_id=reckey2id('i3657178');
+ item_record_id in 
+ (SELECT id FROM sierra_view.item_view WHERE icode1=7);
